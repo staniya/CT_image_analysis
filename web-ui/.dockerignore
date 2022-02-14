@@ -1,0 +1,11 @@
+.git
+.idea
+**/.ipynb_checkpoints
+*.jupyterlab-workspace
+*.log
+lib/ec2
+env.yaml
+**/__pycache__
+monitoring
+webfish_data
+build

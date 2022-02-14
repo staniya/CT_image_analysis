@@ -1,0 +1,14 @@
+*.tif
+*.json
+*.csv
+*.log
+.ipynb_checkpoints*
+cache-directory*
+__pycache__
+*.jupyterlab-workspace
+ec2/*.ipynb
+.idea
+*monitoring
+*.log
+*credentials
+build
