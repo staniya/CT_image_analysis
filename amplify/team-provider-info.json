@@ -1,0 +1,15 @@
+{
+  "main": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ctimageanalysis-main-43539-authRole",
+      "UnauthRoleArn": "arn:aws:iam::511209374208:role/amplify-ctimageanalysis-main-43539-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::511209374208:role/amplify-ctimageanalysis-main-43539-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-ctimageanalysis-main-43539-deployment",
+      "UnauthRoleName": "amplify-ctimageanalysis-main-43539-unauthRole",
+      "StackName": "amplify-ctimageanalysis-main-43539",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:511209374208:stack/amplify-ctimageanalysis-main-43539/0c183d30-9919-11ec-ac2c-0a8c3405b419",
+      "AmplifyAppId": "d2tycbk2xppchu"
+    }
+  }
+}
