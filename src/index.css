@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "PT Serif", serf;
+}
+
+/* Prevent zoom of form fields on focus on mobile browsers */
+select.form-control,
+textarea.form-control,
+input.form-control {
+  font-size: 16px;
+}
+
+/* Prevent mobile input from overflowing and adding a scrollbar */
+input[type=file] {
+  width: 100%;
+}
+
+/* Loader Button */
+.spinning.glyphicon {
+  margin-right: 7px;
+  top: 2px;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from { transform: scale(1) rotate(0deg); }
+  to { transform: scale(1) rotate(360deg); }
+}
