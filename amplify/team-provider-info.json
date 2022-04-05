@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "main": {
     "awscloudformation": {
       "AuthRoleName": "amplify-ctimageanalysis-main-43539-authRole",
@@ -10,6 +11,36 @@
       "StackName": "amplify-ctimageanalysis-main-43539",
       "StackId": "arn:aws:cloudformation:ap-northeast-1:511209374208:stack/amplify-ctimageanalysis-main-43539/0c183d30-9919-11ec-ac2c-0a8c3405b419",
       "AmplifyAppId": "d2tycbk2xppchu"
+=======
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ctimageanalysis-dev-204912-authRole",
+      "UnauthRoleArn": "arn:aws:iam::511209374208:role/amplify-ctimageanalysis-dev-204912-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::511209374208:role/amplify-ctimageanalysis-dev-204912-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-ctimageanalysis-dev-204912-deployment",
+      "UnauthRoleName": "amplify-ctimageanalysis-dev-204912-unauthRole",
+      "StackName": "amplify-ctimageanalysis-dev-204912",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:511209374208:stack/amplify-ctimageanalysis-dev-204912/1cb5d1c0-9e9b-11ec-9a24-0ea0675a65ef",
+      "AmplifyAppId": "d1ypte04nxxa99"
+    },
+    "categories": {
+      "auth": {
+        "ctimageanalysis2fede947": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d1ypte04nxxa99",
+          "type": "cicd"
+        }
+      },
+      "function": {
+        "S3Trigger670f7c9d": {
+          "deploymentBucketName": "amplify-ctimageanalysis-dev-204912-deployment",
+          "s3Key": "amplify-builds/S3Trigger670f7c9d-773665677a414c796c4a-build.zip"
+        }
+      }
+>>>>>>> dev
     }
   }
 }
