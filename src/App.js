@@ -1,119 +1,83 @@
-import React, { Component } from 'react';
-import { withRouter,Link } from 'react-router-dom';
-import { Nav,Navbar,NavItem } from 'react-bootstrap';
-import { CognitoUserPool, } from 'amazon-cognito-identity-js';
-import config from './config.js';
-import Routes from './Routes';
-import RouteNavItem from './components/RouteNavItem';
+import React, { useState, useEffect } from "react";
 import './App.css';
 
-class App extends Component {
+import { withAuthenticator} from "@aws-amplify/ui-react";
+import { createTodo, updateTodo } from "./graphql/mutations";
+import { listTodos } from "./graphql/queries";
+import Amplify, { API, graphqlOperation } from "aws-amplify";
+import awsExports from "./aws-exports";
 
-  constructor(props) {
-    super(props);
+Amplify.configure(awsExports);
 
-    this.state = {
-      userToken: null,
-      isLoadingUserToken: true,
-    };
-  }
+function App() {
+ const [allTodos, setAlltodos] = useState(null);
 
-  updateUserToken = (userToken) => {
-    this.setState({
-      userToken: userToken
-    });
-  }
+ useEffect(() => {
+   (async () => {
+     const todos = await API.graphql(graphqlOperation(listTodos));
+     setAlltodos(todos.data.listTodos.items);
+   })();
+ }, []);
 
-  handleNavLink = (event) => {
-    event.preventDefault();
-    this.props.history.push(event.currentTarget.getAttribute('href'));
-  }
+ const [name, setTodoName] = useState("");
 
-  // clear browser session on logout using
-  // AWS Cognito JS SDK signOut() function
-  handleLogout = (event) => {
-    const currentUser = this.getCurrentUser();
+ const changeTodoName = (e) => {
+   setTodoName(e.target.value);
+ };
 
-    if (currentUser !== null) {
-      currentUser.signOut();
-    }
+ const submitAddTodo = async (e) => {
+   e.preventDefault();
+   if (name === "") return alert("Input field cannot be empty");
+   const todo = { name, done: false };
+   await API.graphql(graphqlOperation(createTodo, { input: todo }));
+   allTodos === null ? setAlltodos([todo]) : setAlltodos([todo, ...allTodos]);
+ };
 
-    this.updateUserToken(null);
-    this.props.history.push('/login');
-  }
+ const toggleTodo = async (id) => {
+   const todo = allTodos.find(({ id: _id }) => _id === id);
+   let newTodo = { id, name: todo.name };
+   newTodo.done = todo.done ? false : true;
+   await API.graphql(graphqlOperation(updateTodo, { input: newTodo }));
+ };
 
-  // store and load user from the browser session
-  getCurrentUser() {
-    const userPool = new CognitoUserPool({
-      UserPoolId: config.cognito.USER_POOL_ID,
-      ClientId: config.cognito.APP_CLIENT_ID,
-    });
-
-    return userPool.getCurrentUser();
-  }
-
-  getUserToken(currentUser) {
-    return new Promise((resolve, reject) => {
-      currentUser.getSession(function(err, session){
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve(session.getIdToken().getJwtToken());
-      });
-    });
-  }
-
-  // load user token from session when the user refreshes
-  async componentDidMount() {
-    const currentUser = this.getCurrentUser();
-
-    if (currentUser === null) {
-      this.setState({isLoadingUserToken: false});
-      return;
-    }
-
-    try {
-      const userToken = await this.getUserToken(currentUser);
-      this.updateUserToken(userToken);
-    }
-    catch(e) {
-      alert(e);
-    }
-
-    this.setState({isLoadingUserToken: false});
-  }
-
-  render () {
-    const childProps = {
-      userToken: this.state.userToken,
-      updateUserToken: this.updateUserToken,
-    };
-
-    // hold off rendering the app till isLoadingToken is false
-    return ! this.state.isLoadingUserToken && (
-      <div className="App container">
-        <Navbar fluid collapseOnSelect>
-          <Navbar.Header>
-              <Navbar.Brand>
-                <Link to="/">Scratch</Link>
-              </Navbar.Brand>
-              <Navbar.Toggle />
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav pullRight>
-            { this.state.userToken 
-            ? <NavItem onClick={this.handleLogout}>Logout</NavItem>
-            : [ <RouteNavItem key={1} onClick={this.handleNavLink}  href="/signup">Signup</RouteNavItem>,
-                <RouteNavItem key={2} onClick={this.handleNavLink} href="/login">Login</RouteNavItem>] }
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-        {/* Pass in the props defined above as state in the route*/}
-        <Routes childProps={childProps} />
-      </div>
-    );
-  }
+ return (
+   <div className="App">
+     <div className="heading">
+       <h1>Amplify Todo</h1>
+       <div className="sign-out">
+         <AmplifySignOut />
+       </div>
+     </div>
+     <form className="add-todo-form" onSubmit={submitAddTodo}>
+       <input
+         placeholder="Add Todo"
+         onChange={changeTodoName}
+       />
+       <button type="submit">+</button>
+     </form>
+     {allTodos === null ? (
+       <p>Loading Todos...</p>
+     ) : allTodos.length === 0 ? (
+       <p>No Todo available</p>
+     ) : (
+       <div className="todos">
+         {allTodos.reverse().map(({ id, name, done },i) => (
+           <div className="todo-block" key={i}>
+             <input
+               onClick={() => toggleTodo(id)}
+               type="checkbox"
+               id={id}
+               value={id}
+               key={i}
+               defaultChecked={done}
+             />
+             <label htmlFor={id}>{name}</label>
+           </div>
+         ))}
+       </div>
+     )}
+   </div>
+ );
 }
 
-export default withRouter(App);
+export default withAuthenticator(App);

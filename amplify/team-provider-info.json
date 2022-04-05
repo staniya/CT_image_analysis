@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ctimageanalysis-dev-204912-authRole",
+      "UnauthRoleArn": "arn:aws:iam::511209374208:role/amplify-ctimageanalysis-dev-204912-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::511209374208:role/amplify-ctimageanalysis-dev-204912-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-ctimageanalysis-dev-204912-deployment",
+      "UnauthRoleName": "amplify-ctimageanalysis-dev-204912-unauthRole",
+      "StackName": "amplify-ctimageanalysis-dev-204912",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:511209374208:stack/amplify-ctimageanalysis-dev-204912/1cb5d1c0-9e9b-11ec-9a24-0ea0675a65ef",
+      "AmplifyAppId": "d1ypte04nxxa99"
+    },
+    "categories": {
+      "auth": {
+        "ctimageanalysis2fede947": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d1ypte04nxxa99",
+          "type": "cicd"
+        }
+      }
+    }
+  }
+}
