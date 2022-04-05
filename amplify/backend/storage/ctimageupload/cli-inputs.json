@@ -1,0 +1,14 @@
+{
+  "resourceName": "ctimageupload",
+  "policyUUID": "ef317efc",
+  "bucketName": "ctimageuploaddevbucket",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Trigger670f7c9d",
+  "groupAccess": {}
+}

@@ -50,5 +50,29 @@
       "type": "cicd",
       "lastPushTimeStamp": "2022-03-08T05:17:42.688Z"
     }
+  },
+  "function": {
+    "S3Trigger670f7c9d": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true
+    }
+  },
+  "storage": {
+    "ctimageupload": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger670f7c9d",
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ]
+        }
+      ]
+    }
   }
 }

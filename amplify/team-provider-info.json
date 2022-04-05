@@ -20,6 +20,12 @@
           "appId": "d1ypte04nxxa99",
           "type": "cicd"
         }
+      },
+      "function": {
+        "S3Trigger670f7c9d": {
+          "deploymentBucketName": "amplify-ctimageanalysis-dev-204912-deployment",
+          "s3Key": "amplify-builds/S3Trigger670f7c9d-773665677a414c796c4a-build.zip"
+        }
       }
     }
   }
